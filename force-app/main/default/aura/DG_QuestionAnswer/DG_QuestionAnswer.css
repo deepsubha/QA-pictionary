@@ -1,0 +1,16 @@
+.THIS {
+    padding-left: 120px; 
+    padding-right: 120px; 
+}
+.THIS .Titleheader{
+    text-align: left;
+}
+.THIS .row{
+    /*padding-left: 30px;*/    
+}
+.THIS .footer{
+    text-align: center;
+}
+.THIS .slds-form-element__control .slds-radio{
+    display: inline !important;
+}
