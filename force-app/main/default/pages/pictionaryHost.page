@@ -1,0 +1,37 @@
+<!--
+  
+-->
+<apex:page showHeader="false" standardStylesheets="false">
+    <apex:includeLightning />
+
+    <div id="pictionary"></div>
+    <script type="text/javascript">
+    var userId;
+    var roomCode; 
+        window.onload=function(){        
+            userId = '{!$CurrentPage.parameters.userId}';
+            roomCode = '{!$CurrentPage.parameters.roomCode}';
+        };
+    
+        setTimeout(()=>{
+            /*Loading the lighnting component with Url parameter*/
+            //alert('User Id: '+userId+' roomCode: '+roomCode);
+            $Lightning.use("c:DG_DrawMeRightNowHost", function() {
+            $Lightning.createComponent(
+                //"c:DG_DrawMeRightNow",
+                "c:DG_QuestionAnswer",
+                {
+                    "userId": userId,
+                    "roomCode": roomCode
+                },
+                "pictionary",
+                function(cmp) {
+                    console.log("Lightning LWC Component is Loaded...");
+                }
+            );
+        });
+            
+        },1000);
+        
+    </script>
+</apex:page>

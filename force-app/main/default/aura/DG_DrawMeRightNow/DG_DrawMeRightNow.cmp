@@ -1,0 +1,29 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                            access="global"
+                            controller="DG_DataController">
+    <aura:attribute name="word" type="string" default=""/>
+    <aura:attribute name="userId" type="string" default=""/>
+    <aura:attribute name="roomCode" type="string" default=""/>
+    <aura:handler name="init" value="{!this}" action="{!c.checkUrlParams}"/>
+    <center>
+        <div style="padding: 20px;">
+            <lightning:button class="showBtn" title="Explore" label="Get The Word" variant="brand" onclick="{!c.selectWord}"/>
+        </div>
+
+        <div style="padding: 20px;">
+            <c:dG_showMeTheWord word="{!v.word}"/>
+        </div>
+
+        <div style="padding: 20px;">
+            <c:dG_submitTheWord/>
+        </div>
+
+        <div style="padding: 20px;">
+            <!--<c:dG_scoreCards roomCode="{!v.roomCode}" isTrue="{!v.roomCode}"/>-->
+            <aura:if isTrue="{!v.roomCode}">
+                <b>Room: {!v.roomCode}</b>
+                <c:dG_scoreCards roomCode="{!v.roomCode}"/>
+            </aura:if>
+        </div>
+    </center> 
+</aura:component>

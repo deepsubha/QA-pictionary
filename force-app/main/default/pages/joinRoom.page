@@ -1,0 +1,125 @@
+<apex:page sidebar="false" showHeader="false" id="page" controller="JoinRoomController">   
+    <style>
+        .main{
+            margin: 10px;
+            text-align: center;
+            font-family: arial, sans-serif;
+        }
+        .headerTitle{
+        font-size: 20px;
+        font-weight: 600;
+        color: #fff!important;
+        text-transform: uppercase;
+        background: #4e75a3;
+        display: block;
+        padding: 10px;
+        margin:0;
+        }
+        .roomButtons{
+            font-size: 15px;
+        }
+        .createButton{
+            margin-right: 10px!important;
+            padding: 5px!important;
+        }
+        .joinButton{
+            margin-left: 10px!important;
+            padding: 5px!important;
+        }
+        .roomInfo div{
+            font-size: 20px;
+            font-weight: 600;
+            height: 300px!important;
+            width: 300px!important;
+            background-color: rgb(185, 236, 185);
+            margin: auto;
+            
+            border: 3px solid black;
+            padding: 10px;
+        }
+        .roomLabel{
+            font-size: 20px;
+            font-weight: 600;
+            height: 300px!important;
+            width: 300px!important;
+            background-color: rgb(128,128,0); 
+            margin: auto;
+            padding: 10px;
+        }
+        .inputName{
+            font-size: 20px;
+            font-family: Courier New;
+        }
+        .joinOrCreate{
+            font-size: 15px!important;
+            margin-top: 10px!important;
+            padding: 5px!important;
+        }
+        .note{
+        	font-family: Courier New;
+        	font-size: 14px;
+        	font-weight: 40;
+        }
+        .Error{
+        	font-size: 18px;
+            font-weight: 400;
+            height: 50px!important;
+            width: 500px!important;
+            background-color: rgb(230, 130, 0);
+            margin: auto;
+        	margin-bottom: 5px!important;
+            padding: 10px;
+        }
+    </style>    
+    
+    <script type="text/javascript"> <!--Not in use, this will be applicable only in mobile version for toast message! -->     
+            /*window.onload = setupPage;
+            function setupPage() {
+                sforce.one.showToast({        
+                    "title": "Hello There!!"",        
+                    "message": "I am a toast message being fired from visualforce page",        
+                    "type": "success" //supported types are error, success, info, warning        
+                });
+            }*/
+    </script>
+
+    <apex:form styleClass="main">
+        <div>
+            <h2 class="headerTitle">Welcome to Pictionary</h2>
+        </div>
+        <apex:outputPanel styleClass="roomButtons"> <!--we can not use styleclass directly to apex page block-->
+            <apex:pageBlock >
+                <apex:commandButton styleClass="createButton" value="Create Room" action="{!createRoom}"/>
+                <apex:commandButton styleClass="joinButton" value="Join Room" action="{!joinRoom}"/>                
+            </apex:pageBlock>  
+        </apex:outputPanel>
+
+        <apex:outputPanel rendered="{!if(hasError==true , true ,false)}">
+            <p class="Error">
+                    {!errorMsg}
+            </p>  
+        </apex:outputPanel>
+        
+        <apex:outputPanel styleClass="roomInfo" rendered="{!NOT(ISNULL(roomCode))}">   <!--rendered="{!NOT(ISNULL(roomCode))}"-->
+            <div>
+                <apex:outputlabel styleClass="{!if(hasCode==false , roomLabel ,inputName)} " value="Room Code :"/>  <!--roomLabel-->
+                <apex:outputtext styleClass="roomLabel" value="{!roomCode}" rendered="{!if(hasCode==false , true ,false)}"/> 
+                <apex:inputtext styleClass="inputName" value="{!roomCode}" rendered="{!if(hasCode==true , true ,false)}"/>
+                
+                <br/><br/><br/>
+                
+                <apex:outputlabel styleClass="inputName" value="Nick Name :"/>
+                <apex:inputtext styleClass="inputName" value="{!userId}"/> 
+                
+                <!--Note section-->
+                <p class="note">
+                    <b>Note:</b> This will be your calling name in this game.
+                </p>
+            </div>
+        </apex:outputPanel>
+            
+        <apex:outputPanel rendered="{!NOT(ISNULL(roomCode))}">
+            <apex:commandButton styleClass="joinOrCreate" value="Join" action="{!gotoPictionary}"/>  
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>
